@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://assets.opendata.aws/css/bootstrap.min.css" integrity="sha384-QgMEqHzUTK+LoHUhEPkPPb5doQ7O2/sBRiq03GWdbo3k3eNPu/LMiRtrWI+SdVzu" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://assets.opendata.aws/css/awsod.css" integrity="sha384-xJI5lYTAHi5szIar83e2pooIt8BOLN3vGa4dRrLi07y45XFAbgzl9F0mMNyw5SzN" crossorigin="anonymous">
+  <title>
+NOAA GOES on AWS (CICS)
+</title>
+</head>
+<body>
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2">
+      
+<h1>NOAA GOES on AWS (CICS)</h1><div>
+
+
+<p>Data from NOAA&rsquo;s GOES-R series satellite is available on Amazon S3. The National Oceanic and Atmospheric Administration (NOAA) operates a constellation of Geostationary Operational Environmental Satellites (GOES) to provide continuous weather imagery and monitoring of meteorological and space environment data for the protection of life and property across the United States. GOES satellites provide critical atmospheric, oceanic, climatic and space weather products supporting weather forecasting and warnings, climatologic analysis and prediction, ecosystems management, safe and efficient public and private transportation, and other national priorities.</p>
+
+<p>The satellites provide advanced imaging with increased spatial resolution, 16 spectral channels, and up to 1 minute scan frequency for more accurate forecasts and timely warnings.</p>
+
+<p>The real-time feed and full historical archive of original resolution Advanced Baseline Imager (ABI) radiance data (Level 1b) and full resolution Cloud and Moisture Imager (CMI) products (Level 2) are freely available on Amazon S3 for anyone to use.</p>
+
+<h2 id="accessing-goes-data-on-aws">Accessing GOES Data on AWS<a href="#accessing-goes-data-on-aws" class="hanchor" ariaLabel="Anchor"> 🔗&#xFE0E;</a> </h2>
+
+<p>The availability of GOES-R Series on AWS data is the result of the NOAA Big Data Project (BDP) to explore the potential benefits of storing copies of key observations and model outputs in the Cloud to allow computing directly on the data without requiring further distribution. Such an approach could help form new lines of business and economic growth while making NOAA&rsquo;s data more easily accessible to the American public.</p>
+
+<p>This page includes information on data structure; you can find much <a href="http://www.goes-r.gov/">more detailed information about GOES-R Series data from NOAA</a>.</p>
+
+<p>Examples of how to access the objects via the AWS CLI can be seen below.</p>
+
+<p><code>aws s3 ls noaa-goes16 --no-sign-request</code></p>
+
+<p><code>aws s3 ls noaa-goes17 --no-sign-request</code></p>
+
+<p><code>aws s3 cp s3://noaa-goes16/&lt;Product&gt;/&lt;Year&gt;/&lt;Day of Year&gt;/&lt;Hour&gt;/&lt;Filename&gt; . --no-sign-request</code></p>
+
+<p><em>Data will be moved to different Amazon S3 storage classes on a schedule. It will start in Standard and move to Infrequent Access after 30 days.</em></p>
+
+<h2 id="about-the-data">About the Data<a href="#about-the-data" class="hanchor" ariaLabel="Anchor"> 🔗&#xFE0E;</a> </h2>
+
+<p>All data files from GOES-16 (formerly GOES-R) &amp; GOES-17 are provided in netCDF4 format. The GOES-16 data is hosted in the <code>noaa-goes16</code> Amazon S3 bucket in the us-east-1 AWS region. The GOES-17 data is hosted in the <code>noaa-goes17</code> Amazon S3 bucket in the us-east-1 AWS region. Individual files are availabe in the netCDF format with the following schema:</p>
+
+<p><code>&lt;Product&gt;/&lt;Year&gt;/&lt;Day of Year&gt;/&lt;Hour&gt;/&lt;Filename&gt;</code></p>
+
+<p>where:</p>
+
+<ul>
+<li><code>&lt;Product&gt;</code> is the product generated from one of the sensors aboard the satellite (e.g.)
+
+<ul>
+<li>ABI-L1b-RadF - Advanced Baseline Imager Level 1b Full Disk</li>
+<li>ABI-L1b-RadC - Advanced Baseline Imager Level 1b CONUS</li>
+<li>ABI-L1b-RadM - Advanced Baseline Imager Level 1b Mesoscale</li>
+<li>ABI-L2-ACHAC - Advanced Baseline Imager Level 2 Cloud Top Height CONUS</li>
+<li>ABI-L2-ACHAF - Advanced Baseline Imager Level 2 Cloud Top Height Full Disk</li>
+<li>ABI-L2-ACHAM - Advanced Baseline Imager Level 2 Cloud Top Height Mesoscale</li>
+<li>ABI-L2-ACHTF - Advanced Baseline Imager Level 2 Cloud Top Temperature Full Disk</li>
+<li>ABI-L2-ACHTM - Advanced Baseline Imager Level 2 Cloud Top Temperature Mesoscale</li>
+<li>ABI-L2-ACMC - Advanced Baseline Imager Level 2 Clear Sky Mask CONUS</li>
+<li>ABI-L2-ACMF - Advanced Baseline Imager Level 2 Clear Sky Mask Full Disk</li>
+<li>ABI-L2-ACMM - Advanced Baseline Imager Level 2 Clear Sky Mask Mesoscale</li>
+<li>ABI-L2-ACTPC - Advanced Baseline Imager Level 2 Cloud Top Phase CONUS</li>
+<li>ABI-L2-ACTPF - Advanced Baseline Imager Level 2 Cloud Top Phase Full Disk</li>
+<li>ABI-L2-ACTPM - Advanced Baseline Imager Level 2 Cloud Top Phase Mesoscale</li>
+<li>ABI-L2-ADPC - Advanced Baseline Imager Level 2 Aerosol Detection CONUS</li>
+<li>ABI-L2-ADPF - Advanced Baseline Imager Level 2 Aerosol Detection Full Disk</li>
+<li>ABI-L2-ADPM - Advanced Baseline Imager Level 2 Aerosol Detection Mesoscale</li>
+<li>ABI-L2-AODC - Advanced Baseline Imager Level 2 Aerosol Optical Depth CONUS</li>
+<li>ABI-L2-AODF - Advanced Baseline Imager Level 2 Aerosol Optical Depth Full Disk</li>
+<li>ABI-L2-CMIPC - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery CONUS</li>
+<li>ABI-L2-CMIPF - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Full Disk</li>
+<li>ABI-L2-CMIPM - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Mesoscale</li>
+<li>ABI-L2-CODC - Advanced Baseline Imager Level 2 Cloud Optical Depth CONUS</li>
+<li>ABI-L2-CODF - Advanced Baseline Imager Level 2 Cloud Optical Depth Full Disk</li>
+<li>ABI-L2-CPSC - Advanced Baseline Imager Level 2 Cloud Particle Size CONUS</li>
+<li>ABI-L2-CPSF - Advanced Baseline Imager Level 2 Cloud Particle Size Full Disk</li>
+<li>ABI-L2-CPSM - Advanced Baseline Imager Level 2 Cloud Particle Size Mesoscale</li>
+<li>ABI-L2-CTPC - Advanced Baseline Imager Level 2 Cloud Top Pressure CONUS</li>
+<li>ABI-L2-CTPF - Advanced Baseline Imager Level 2 Cloud Top Pressure Full Disk</li>
+<li>ABI-L2-DMWC - Advanced Baseline Imager Level 2 Derived Motion Winds CONUS</li>
+<li>ABI-L2-DMWF - Advanced Baseline Imager Level 2 Derived Motion Winds Full Disk</li>
+<li>ABI-L2-DMWM - Advanced Baseline Imager Level 2 Derived Motion Winds Mesoscale</li>
+<li>ABI-L2-DSIC - Advanced Baseline Imager Level 2 Derived Stability Indices CONUS</li>
+<li>ABI-L2-DSIF - Advanced Baseline Imager Level 2 Derived Stability Indices Full Disk</li>
+<li>ABI-L2-DSIM - Advanced Baseline Imager Level 2 Derived Stability Indices Mesoscale</li>
+<li>ABI-L2-DSRC - Advanced Baseline Imager Level 2 Downward Shortwave Radiation CONUS</li>
+<li>ABI-L2-DSRF - Advanced Baseline Imager Level 2 Downward Shortwave Radiation Full Disk</li>
+<li>ABI-L2-DSRM - Advanced Baseline Imager Level 2 Downward Shortwave Radiation Mesoscale</li>
+<li>ABI-L2-FDCC - Advanced Baseline Imager Level 2 Fire (Hot Spot Characterization) CONUS</li>
+<li>ABI-L2-FDCF - Advanced Baseline Imager Level 2 Fire (Hot Spot Characterization) Full Disk</li>
+<li>ABI-L2-LSTC - Advanced Baseline Imager Level 2 Land Surface Temperature CONUS</li>
+<li>ABI-L2-LSTF - Advanced Baseline Imager Level 2 Land Surface Temperature Full Disk</li>
+<li>ABI-L2-LSTM - Advanced Baseline Imager Level 2 Land Surface Temperature Mesoscale</li>
+<li>ABI-L2-LVMPC - Advanced Baseline Imager Level 2 Legacy Vertical Moisture Profile CONUS</li>
+<li>ABI-L2-LVMPF - Advanced Baseline Imager Level 2 Legacy Vertical Moisture Profile Full Disk</li>
+<li>ABI-L2-LVMPM - Advanced Baseline Imager Level 2 Legacy Vertical Moisture Profile Mesoscale</li>
+<li>ABI-L2-LVTPC - Advanced Baseline Imager Level 2 Legacy Vertical Temperature Profile CONUS</li>
+<li>ABI-L2-LVTPF - Advanced Baseline Imager Level 2 Legacy Vertical Temperature Profile Full Disk</li>
+<li>ABI-L2-LVTPM - Advanced Baseline Imager Level 2 Legacy Vertical Temperature Profile Mesoscale</li>
+<li>ABI-L2-MCMIPC - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery CONUS</li>
+<li>ABI-L2-MCMIPF - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Full Disk</li>
+<li>ABI-L2-MCMIPM - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Mesoscale</li>
+<li>ABI-L2-RRQPEF - Advanced Baseline Imager Level 2 Rainfall Rate (Quantitative Precipitation Estimate) Full Disk</li>
+<li>ABI-L2-RSRC - Advanced Baseline Imager Level 2 Reflected Shortwave Radiation Top-Of-Atmosphere CONUS</li>
+<li>ABI-L2-RSRF - Advanced Baseline Imager Level 2 Reflected Shortwave Radiation Top-Of-Atmosphere Full Disk</li>
+<li>ABI-L2-SSTF - Advanced Baseline Imager Level 2 Sea Surface (Skin) Temperature Full Disk</li>
+<li>ABI-L2-TPWC - Advanced Baseline Imager Level 2 Total Precipitable Water CONUS</li>
+<li>ABI-L2-TPWF - Advanced Baseline Imager Level 2 Total Precipitable Water Full Disk</li>
+<li>ABI-L2-TPWM - Advanced Baseline Imager Level 2 Total Precipitable Water Mesoscale</li>
+<li>ABI-L2-VAAF - Advanced Baseline Imager Level 2 Volcanic Ash: Detection and Height Full Disk</li>
+<li>GLM-L2-LCFA - Geostationary Lightning Mapper Level 2 Lightning Detection</li>
+<li>SUVI-L1b-Fe093 - Solar Ultraviolet Imager Level 1b Extreme Ultraviolet</li>
+<li>SUVI-L1b-Fe131 - Solar Ultraviolet Imager Level 1b Extreme Ultraviolet</li>
+<li>SUVI-L1b-Fe171 - Solar Ultraviolet Imager Level 1b Extreme Ultraviolet</li>
+<li>SUVI-L1b-Fe195 - Solar Ultraviolet Imager Level 1b Extreme Ultraviolet</li>
+<li>SUVI-L1b-Fe284 - Solar Ultraviolet Imager Level 1b Extreme Ultraviolet</li>
+<li>SUVI-L1b-He303 - Solar Ultraviolet Imager Level 1b Extreme Ultraviolet</li>
+</ul></li>
+<li><code>&lt;Year&gt;</code> is the year the netCDF4 file was created</li>
+<li><code>&lt;Day of Year&gt;</code> is the numerical day of the year (1-365)</li>
+<li><code>&lt;Hour&gt;</code> is the hour the data observation was made</li>
+<li><code>&lt;Filename&gt;</code> is the name of the file containing the data. These are compressed and encapsulated using the netCDF4 standard.</li>
+</ul>
+
+<p>A <code>&lt;Filename&gt;</code> is delineated by underscores &lsquo;_&rsquo; and looks like this:</p>
+
+<p><code>OR_ABI-L1b-RadF-M3C02_G16_s20171671145342_e20171671156109_c20171671156144.nc</code></p>
+
+<p>where:</p>
+
+<ul>
+<li><code>OR</code>: Operational system real-time data</li>
+<li><code>ABI-L1b-RadF-M3C02</code> is delineated by hyphen &lsquo;-&rsquo;:
+
+<ul>
+<li><code>ABI</code>: is ABI Sensor</li>
+<li><code>L1b</code>: is processing level, L1b data or L2</li>
+<li><code>Rad</code>: is radiances. Other products include CMIP (Cloud and Moisture Imagery products) and MCMIP (multichannel CMIP).</li>
+<li><code>F</code>: is full disk (normally every 15 minutes), C is continental U.S. (normally every 5 minutes), M1 and M2 is Mesoscale region 1 and region 2 (usually every minute each)</li>
+<li><code>M3</code>: is mode 3 (scan operation), M4 is mode 4 (only full disk scans every five minutes – no mesoscale or CONUS)</li>
+<li><code>C02</code>: is channel or band 02, There will be sixteen bands, 01-16</li>
+</ul></li>
+<li><code>G16</code>: is satellite id for GOES-16 (future G17)</li>
+<li><code>s20171671145342</code>: is start of scan time
+
+<ul>
+<li>4 digit year</li>
+<li>3 digit day of year</li>
+<li>2 digit hour</li>
+<li>2 digit minute</li>
+<li>2 digit second</li>
+<li>1 digit tenth of second</li>
+</ul></li>
+<li><code>e20171671156109</code>: is end of scan time</li>
+<li><code>c20171671156144</code>: is netCDF4 file creation time</li>
+<li><code>.nc</code> is netCDF file extension</li>
+</ul>
+
+</div>
+      <footer>
+        <hr>
+        <a href="http://aws.amazon.com/opendata/public-datasets">AWS Public Datasets</a>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

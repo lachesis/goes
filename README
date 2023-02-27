@@ -1,0 +1,11 @@
+Some tools for playing around with GOES-16 raw data from AWS
+
+Get the data:
+
+aws s3 cp --no-sign-request s3://noaa-goes16/ABI-L2-MCMIPF/2023/010/17/OR_ABI-L2-MCMIPF-M6_G16_s20230101750204_e20230101759524_c20230101800012.nc data
+
+Few products:
+ABI-L2-MCMIPC - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery CONUS
+ABI-L2-MCMIPF - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Full Disk
+ABI-L2-MCMIPM - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Mesoscale
+https://docs.opendata.aws/noaa-goes16/cics-readme.html
