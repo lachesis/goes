@@ -1,15 +1,31 @@
 Some tools for playing around with GOES-16 raw data from AWS
 
-Get the data:
+Installing, follow usual pattern:
 
-aws s3 cp --no-sign-request s3://noaa-goes16/ABI-L2-MCMIPF/2023/010/17/OR_ABI-L2-MCMIPF-M6_G16_s20230101750204_e20230101759524_c20230101800012.nc data
+  python3 -m virtualenv venv
+  source ./venv/bin/activate
+  pip install -r requirements.txt
+
 
 Fetch & process the data in one step (example):
 
-./goes-process.py -d '12pm EST' -p 'ABI-L2-MCMIPF' -s noaa-goes18 -c cache -o full18.jpg
+  python ./goes-process.py -d '12pm EST' -p 'ABI-L2-MCMIPF' -s noaa-goes18 -c cache -o full18.jpg
 
-Few products:
+
+Same, but GOES-16 during American Eclipse 2024:
+
+  python ./goes-process.py -d '2024-04-08T19:10:00Z' -p 'ABI-L2-MCMIPF' -s noaa-goes16 -c cache -o full16-eclipse.jpg
+
+
+Just download the raw data, using aws s3 tools:
+
+aws s3 cp --no-sign-request s3://noaa-goes16/ABI-L2-MCMIPF/2023/010/17/OR_ABI-L2-MCMIPF-M6_G16_s20230101750204_e20230101759524_c20230101800012.nc data
+
+
+A few product names:
 ABI-L2-MCMIPC - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery CONUS
 ABI-L2-MCMIPF - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Full Disk
 ABI-L2-MCMIPM - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Mesoscale
+
+Find more here, or see links textfile:
 https://docs.opendata.aws/noaa-goes16/cics-readme.html
