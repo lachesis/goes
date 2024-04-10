@@ -148,7 +148,7 @@ def run(args):
         mode = 'L'
 
     img = PIL.Image.fromarray(img_arr.astype('uint8'), mode=mode)
-    img.save(args.out)
+    img.save(args.out, quality=99)
 
 def main():
     parser = argparse.ArgumentParser(description='Get satellite imagery.')
