@@ -4,6 +4,10 @@ Get the data:
 
 aws s3 cp --no-sign-request s3://noaa-goes16/ABI-L2-MCMIPF/2023/010/17/OR_ABI-L2-MCMIPF-M6_G16_s20230101750204_e20230101759524_c20230101800012.nc data
 
+Fetch & process the data in one step (example):
+
+./goes-process.py -d '12pm EST' -p 'ABI-L2-MCMIPF' -s noaa-goes18 -c cache -o full18.jpg
+
 Few products:
 ABI-L2-MCMIPC - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery CONUS
 ABI-L2-MCMIPF - Advanced Baseline Imager Level 2 Cloud and Moisture Imagery Full Disk
